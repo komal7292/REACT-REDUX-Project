@@ -1,0 +1,8 @@
+.container {
+  height: 400px;
+}
+@media (max-width: 785px) {
+  List {
+    display: none;
+  }
+}

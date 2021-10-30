@@ -1,0 +1,18 @@
+.contact-form {
+  max-width: 80%;
+  /* height: 100%; */
+  margin: auto;
+  border-radius: 5px;
+  background-color: #1e1d2b;
+  padding: 20px;
+}
+input [type="text"],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
