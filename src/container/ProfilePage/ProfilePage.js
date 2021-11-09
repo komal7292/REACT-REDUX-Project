@@ -7,12 +7,12 @@ import EducationPage from "../../Education/EducationPage";
 import axios from "axios";
 import { setAllData } from "../../components/redux/action/action";
 import { actionType } from "../../components/redux/constant/actionType";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function ProfilePage() {
   let dispatch = useDispatch();
-  const state = useSelector((state) => state.setBanner.setProfileData);
   const data = JSON.parse(localStorage.getItem("userDetails"));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function dataGet() {
     axios
       .get(
@@ -30,7 +30,7 @@ function ProfilePage() {
   }
   useEffect(() => {
     dataGet();
-  }, []);
+  }, [dataGet]);
 
   return (
     <div>

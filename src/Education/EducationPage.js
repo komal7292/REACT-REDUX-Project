@@ -62,7 +62,7 @@ function EducationPage() {
         borderRadius: "20px",
       }}
     >
-      {state.education === null ? (
+      {state?.education === null ? (
         "Education not added yet"
       ) : (
         <div>
@@ -108,7 +108,7 @@ function EducationPage() {
                   borderRadius: "10px",
                 }}
               />
-              {state.degree_name}
+              {state?.degree_name}
               <div
                 style={{
                   marginLeft: "65px",
@@ -117,7 +117,7 @@ function EducationPage() {
                   fontSize: "11px",
                 }}
               >
-                {state.university_name}
+                {state?.university_name}
               </div>
             </div>
           </div>
@@ -130,7 +130,10 @@ function EducationPage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <UpdateEducation educationData={educationDataGet} />
+          <UpdateEducation
+            educationData={educationDataGet}
+            educationStudentData={state}
+          />
         </Box>
       </Modal>
     </div>

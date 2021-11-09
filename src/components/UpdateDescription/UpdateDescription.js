@@ -28,7 +28,6 @@ function UpdateDescription(props) {
         descriptionData
       )
       .then((response) => {
-        console.log("data", response.data);
         if (response.data.statuscode === 200) {
           dispatch(setAllData(actionType.SET_MODAL_TOGGLE, false));
           props.getData();

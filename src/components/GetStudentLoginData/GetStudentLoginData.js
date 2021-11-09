@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { List, ListItem, ListItemText } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 
 function GetStudentLoginData() {
   const [name, setName] = useState("");
   const [university, setUniversity] = useState("");
   const data = JSON.parse(localStorage.getItem("userDetails"));
-
   async function getData() {
     await axios
       .get(
@@ -56,7 +55,6 @@ function GetStudentLoginData() {
           textTransform: " capitalize",
         }}
       >
-        {/* <ListItemText primary={name.user_name} /> */}
         <div
           style={{
             color: "white",
@@ -65,7 +63,7 @@ function GetStudentLoginData() {
             marginLeft: "10px",
           }}
         >
-          {name.user_name}
+          {name?.user_name}
           <div
             style={{
               color: "#B9B9B9",
@@ -74,10 +72,9 @@ function GetStudentLoginData() {
               marginTop: "10px",
             }}
           >
-            {university.university_name}
+            {university?.university_name}
           </div>
         </div>
-        {/* <div>{university.university_name}</div> */}
       </ListItem>
     </List>
   );
