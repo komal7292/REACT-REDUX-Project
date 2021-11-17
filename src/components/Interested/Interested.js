@@ -1,19 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import AddIcon from "@mui/icons-material/Add";
-import axios from "axios";
-import { setAllData } from "../redux/action/action";
-import { actionType } from "../redux/constant/actionType";
 import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
-import EditTypeOfJobs from "../EditTypeOfJobs/EditTypeOfJobs";
+import EditInterestedWork from "../EditInterestedWork/EditInterestedWork";
+import { setAllData } from "../redux/action/action";
+import { actionType } from "../redux/constant/actionType";
 
-function TypeOfJob() {
+function Interested() {
   let dispatch = useDispatch();
-  const dataOfJobs = useSelector((state) => state.setBanner.setTypeOfJobsData);
-  const data = JSON.parse(localStorage.getItem("userDetails"));
-  const JobsToggle = useSelector((state) => state.setBanner.setJobsToggle);
+  const studentData = useSelector((state) => state.setBanner.setProfileData);
+  const modalToggle = useSelector(
+    (state) => state.setBanner.setInterestedToggle
+  );
   const style = {
     position: "relative",
     overflow: "auto",
@@ -28,24 +28,8 @@ function TypeOfJob() {
     p: 4,
   };
   function handleOpen() {
-    dispatch(setAllData(actionType.SET_JOBS_TOGGLE, true));
+    dispatch(setAllData(actionType.SET_INTERESTED_WORK_TOGGLE, true));
   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function getTypeOfJobsData() {
-    axios
-      .get(
-        `https://develop.hipoz.com/api/userprofile?user_id=${data?.admin_id}&status_enum_id=1`
-      )
-      .then((response) => {
-        dispatch(
-          setAllData(actionType.SET_TYPE_OF_JOBS_DATA, response.data.data[0])
-        );
-      });
-  }
-  useEffect(() => {
-    getTypeOfJobsData();
-  }, [getTypeOfJobsData]);
-
   return (
     <div
       style={{
@@ -57,7 +41,7 @@ function TypeOfJob() {
         borderRadius: "20px",
       }}
     >
-      {dataOfJobs.job_type_name === null ? (
+      {studentData.interested_work === null ? (
         <div>
           <div
             style={{
@@ -68,7 +52,7 @@ function TypeOfJob() {
             }}
           >
             <p>
-              Type Of job
+              Interested
               <AddIcon
                 style={{
                   float: "right",
@@ -80,7 +64,7 @@ function TypeOfJob() {
             </p>
             <div>
               <p style={{ padding: "50px", textAlign: "center" }}>
-                Type of Jobs not added yet.
+                Interested data not added yet.
               </p>
             </div>
           </div>
@@ -96,7 +80,7 @@ function TypeOfJob() {
             }}
           >
             <p>
-              Type Of job
+              Edit Interested Work
               <EditIcon
                 style={{
                   float: "right",
@@ -106,7 +90,7 @@ function TypeOfJob() {
                 onClick={handleOpen}
               />
             </p>
-            {dataOfJobs.job_type_name?.map((item) => {
+            {studentData.interested_work?.map((item) => {
               return (
                 <div
                   style={{
@@ -121,7 +105,7 @@ function TypeOfJob() {
                     marginRight: "5px",
                   }}
                 >
-                  {item.job_type_name}
+                  {item.interested_Work_name}
                 </div>
               );
             })}
@@ -129,16 +113,16 @@ function TypeOfJob() {
         </div>
       )}
       <Modal
-        open={JobsToggle}
-        onClose={JobsToggle}
+        open={modalToggle}
+        onClose={modalToggle}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <EditTypeOfJobs passDataToProps={getTypeOfJobsData} />
+          <EditInterestedWork passDataToProps={studentData} />
         </Box>
       </Modal>
     </div>
   );
 }
-export default TypeOfJob;
+export default Interested;

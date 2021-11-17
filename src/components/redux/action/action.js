@@ -110,6 +110,12 @@ export const JobsToggle = (product) => {
     payload: product,
   };
 };
+export const interestedWorkToggle = (product) => {
+  return {
+    type: actionType.SET_INTERESTED_WORK_TOGGLE,
+    payload: product,
+  };
+};
 
 export const setAllData = (type, product) => async (dispatch) => {
   dispatch({

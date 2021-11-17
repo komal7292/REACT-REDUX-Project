@@ -7,11 +7,13 @@ import EducationPage from "../../Education/EducationPage";
 import axios from "axios";
 import { setAllData } from "../../components/redux/action/action";
 import { actionType } from "../../components/redux/constant/actionType";
-import { useDispatch } from "react-redux";
-import TypeOfJOb from "../../components/TypeOfJob/TypeOfJob";
+import { useSelector, useDispatch } from "react-redux";
+import TypeOfJob from "../../components/TypeOfJob/TypeOfJob";
+import Interested from "../../components/Interested/Interested";
 
 function ProfilePage() {
-  // const data = useSelector((state) => state.setBanner.ProfilePage);
+  const ProfileData = useSelector((state) => state.setBanner.setProfileData);
+  console.log("c", ProfileData);
   let dispatch = useDispatch();
   const data = JSON.parse(localStorage.getItem("userDetails"));
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -21,12 +23,8 @@ function ProfilePage() {
         `https://develop.hipoz.com/api/userprofile?user_id=${data?.admin_id}&status_enum_id=1`
       )
       .then((response) => {
-        console.log("profile", response);
         dispatch(
-          setAllData(
-            actionType.SET_PROFILE_DATA_GET,
-            response.data.data[0].education[0]
-          )
+          setAllData(actionType.SET_PROFILE_DATA_GET, response.data.data[0])
         );
       });
   }
@@ -54,7 +52,10 @@ function ProfilePage() {
         <Grid item md={6}>
           <EducationPage />
           <div style={{ marginTop: "220px" }}>
-            <TypeOfJOb />
+            <TypeOfJob />
+          </div>
+          <div style={{ marginTop: "220px" }}>
+            <Interested />
           </div>
         </Grid>
 

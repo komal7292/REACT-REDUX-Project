@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setAllData } from "../redux/action/action";
 import { actionType } from "../redux/constant/actionType";
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 
 function EditTypeOfJobs(props) {
   let dispatch = useDispatch();
@@ -44,12 +46,29 @@ function EditTypeOfJobs(props) {
         console.log(error);
       });
   }
-
+  function closeModal() {
+    dispatch(setAllData(actionType.SET_JOBS_TOGGLE, false));
+  }
   return (
     <div>
-      <Button type="submit" onClick={submitAllData}>
-        Submit
-      </Button>
+      <ClearIcon
+        onClick={closeModal}
+        style={{
+          float: "right",
+          marginTop: "-30px",
+          marginRight: "20px",
+          color: "white",
+        }}
+      />
+      <CheckIcon
+        onClick={submitAllData}
+        style={{
+          float: "right",
+          marginTop: "-30px",
+          marginRight: "-20px",
+          color: "white",
+        }}
+      />
       <Autocomplete
         style={{ backgroundColor: "white" }}
         multiple

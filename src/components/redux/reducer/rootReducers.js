@@ -19,6 +19,7 @@ const initialState = {
   setEducationToggle: false,
   setTypeOfJobsData: [],
   setJobsToggle: false,
+  setInterestedToggle: false,
 };
 
 export const setBanner = (state = initialState, { type, payload }) => {
@@ -117,6 +118,11 @@ export const setBanner = (state = initialState, { type, payload }) => {
       return {
         ...state,
         setJobsToggle: payload,
+      };
+    case actionType.SET_INTERESTED_WORK_TOGGLE:
+      return {
+        ...state,
+        setInterestedToggle: payload,
       };
     default:
       return state;
