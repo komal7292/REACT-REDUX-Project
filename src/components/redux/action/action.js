@@ -98,6 +98,19 @@ export const typeOfEducationToggle = (product) => {
     payload: product,
   };
 };
+export const typeOfJobs = (product) => {
+  return {
+    type: actionType.SET_TYPE_OF_JOBS_DATA,
+    payload: product,
+  };
+};
+export const JobsToggle = (product) => {
+  return {
+    type: actionType.SET_JOBS_TOGGLE,
+    payload: product,
+  };
+};
+
 export const setAllData = (type, product) => async (dispatch) => {
   dispatch({
     type: type,

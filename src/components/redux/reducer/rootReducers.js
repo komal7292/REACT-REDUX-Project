@@ -17,6 +17,8 @@ const initialState = {
   setMonthData: [],
   setYearData: [],
   setEducationToggle: false,
+  setTypeOfJobsData: [],
+  setJobsToggle: false,
 };
 
 export const setBanner = (state = initialState, { type, payload }) => {
@@ -105,6 +107,16 @@ export const setBanner = (state = initialState, { type, payload }) => {
       return {
         ...state,
         setEducationToggle: payload,
+      };
+    case actionType.SET_TYPE_OF_JOBS_DATA:
+      return {
+        ...state,
+        setTypeOfJobsData: payload,
+      };
+    case actionType.SET_JOBS_TOGGLE:
+      return {
+        ...state,
+        setJobsToggle: payload,
       };
     default:
       return state;

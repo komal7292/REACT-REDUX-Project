@@ -86,6 +86,7 @@ function EducationPage() {
               />
             </p>
           </div>
+          =21
           <div
             style={{
               width: "40%",

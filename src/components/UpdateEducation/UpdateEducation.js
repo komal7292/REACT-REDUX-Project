@@ -7,7 +7,7 @@ import "./UpdateEducation.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckIcon from "@mui/icons-material/Check";
 import { Button } from "@mui/material";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
 function UpdateEducation(props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -175,7 +175,6 @@ function UpdateEducation(props) {
       />
       {graduation.map((item, i) => (
         <>
-          {console.log(item, "Itrem")}
           <label style={{ color: "white" }}>Your Degree</label>
           <select
             inputId={"degree"}

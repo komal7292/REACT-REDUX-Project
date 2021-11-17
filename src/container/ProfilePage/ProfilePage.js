@@ -8,8 +8,10 @@ import axios from "axios";
 import { setAllData } from "../../components/redux/action/action";
 import { actionType } from "../../components/redux/constant/actionType";
 import { useDispatch } from "react-redux";
+import TypeOfJOb from "../../components/TypeOfJob/TypeOfJob";
 
 function ProfilePage() {
+  // const data = useSelector((state) => state.setBanner.ProfilePage);
   let dispatch = useDispatch();
   const data = JSON.parse(localStorage.getItem("userDetails"));
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,6 +53,9 @@ function ProfilePage() {
         </Grid>
         <Grid item md={6}>
           <EducationPage />
+          <div style={{ marginTop: "220px" }}>
+            <TypeOfJOb />
+          </div>
         </Grid>
 
         <Grid item md={3}>
