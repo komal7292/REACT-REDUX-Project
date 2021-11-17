@@ -20,6 +20,7 @@ const initialState = {
   setTypeOfJobsData: [],
   setJobsToggle: false,
   setInterestedToggle: false,
+  setCompanyLocationToggle: false,
 };
 
 export const setBanner = (state = initialState, { type, payload }) => {
@@ -123,6 +124,11 @@ export const setBanner = (state = initialState, { type, payload }) => {
       return {
         ...state,
         setInterestedToggle: payload,
+      };
+    case actionType.SET_COMPANY_LOCATION_TOGGLE:
+      return {
+        ...state,
+        setCompanyLocationToggle: payload,
       };
     default:
       return state;

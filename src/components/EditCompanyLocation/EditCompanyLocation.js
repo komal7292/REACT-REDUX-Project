@@ -6,57 +6,48 @@ import { setAllData } from "../redux/action/action";
 import { actionType } from "../redux/constant/actionType";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
-function EditInterestedWork(props) {
+function EditCompanyLocation(props) {
   let dispatch = useDispatch();
   const studentData = useSelector((state) => state.setBanner.setProfileData);
-  const [studentInterestedWorkData, setStudentInterestedWorkData] = useState(
+  const [studentCompanyLocationData, setStudentCompanyLocationData] = useState(
     []
   );
-  const [getInterestedId, setGetInterestedId] = useState([]);
-  console.log(getInterestedId);
-
-  function interestedWorkData() {
+  const [studentCompanyId, setStudentCompanyId] = useState([]);
+  function studentCompanyData() {
     axios
-      .get(
-        "https://develop.hipoz.com/api/getintresetedworkin?interested_work_in_id=0&status_enum_id=1"
-      )
+      .get("https://develop.hipoz.com/api/countrylist?country_id=0")
       .then((response) => {
-        setStudentInterestedWorkData(response.data.data);
-        console.log(response.data.data);
+        setStudentCompanyLocationData(response.data.data);
+        console.log("koko", response.data.data);
       });
   }
   useEffect(() => {
-    interestedWorkData();
+    studentCompanyData();
   }, []);
+  function closeModal() {
+    dispatch(setAllData(actionType.SET_COMPANY_LOCATION_TOGGLE, false));
+  }
   function dataSubmit() {
-    let data = [];
-    // eslint-disable-next-line array-callback-return
-    getInterestedId.map((item) => {
-      data.push(item.interested_work_in_id);
+    let array = [];
+    studentCompanyId.map((item) => {
+      array.push(item.country_id);
     });
     const jsonData = {
       user_id: 1098,
-      interested_work_in_id: data,
+      pref_country_location_id: [array],
       actionby_id: 1098,
     };
     axios
       .post(
-        "https://develop.hipoz.com/api/updatestudentinterestedworkin",
+        "https://develop.hipoz.com/api/updatestudentprefcountrylocation",
         jsonData
       )
       .then((response) => {
-        console.log(response.data.data);
         if (response.data.statuscode === 200) {
-          dispatch(setAllData(actionType.SET_INTERESTED_WORK_TOGGLE, false));
-          props.passDataToProps();
+          dispatch(setAllData(actionType.SET_COMPANY_LOCATION_TOGGLE, false));
+          setAllData(actionType.SET_PROFILE_DATA_GET, response.data.data);
         }
-      })
-      .catch((error) => {
-        console.log(error);
       });
-  }
-  function closeModal() {
-    dispatch(setAllData(actionType.SET_INTERESTED_WORK_TOGGLE, false));
   }
   return (
     <div>
@@ -81,17 +72,17 @@ function EditInterestedWork(props) {
       <Autocomplete
         style={{ backgroundColor: "white" }}
         multiple
-        value={getInterestedId}
+        value={studentCompanyId}
         id="multiple-limit-tags"
-        options={studentInterestedWorkData}
-        onChange={(e, newValue) => setGetInterestedId(newValue)}
-        getOptionLabel={(hello) => hello.interested_work_in_name}
+        options={studentCompanyLocationData}
+        onChange={(e, newValue) => setStudentCompanyId(newValue)}
+        getOptionLabel={(data) => data.country_name}
         renderInput={(params) => (
           <TextField
             {...params}
             label="Your Job"
-            placeholder={studentData.interested_work?.map((item) => {
-              return item.interested_Work_name;
+            placeholder={studentData.pref_country_name?.map((item) => {
+              return item.country_name;
             })}
           />
         )}
@@ -99,4 +90,4 @@ function EditInterestedWork(props) {
     </div>
   );
 }
-export default EditInterestedWork;
+export default EditCompanyLocation;

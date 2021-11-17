@@ -116,6 +116,12 @@ export const interestedWorkToggle = (product) => {
     payload: product,
   };
 };
+export const companyLocationToggle = (product) => {
+  return {
+    type: actionType.SET_COMPANY_LOCATION_TOGGLE,
+    payload: product,
+  };
+};
 
 export const setAllData = (type, product) => async (dispatch) => {
   dispatch({

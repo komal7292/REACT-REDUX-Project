@@ -10,6 +10,7 @@ import { actionType } from "../../components/redux/constant/actionType";
 import { useSelector, useDispatch } from "react-redux";
 import TypeOfJob from "../../components/TypeOfJob/TypeOfJob";
 import Interested from "../../components/Interested/Interested";
+import CompanyLocation from "../../components/CompanyLocation/CompanyLocation";
 
 function ProfilePage() {
   const ProfileData = useSelector((state) => state.setBanner.setProfileData);
@@ -56,6 +57,9 @@ function ProfilePage() {
           </div>
           <div style={{ marginTop: "220px" }}>
             <Interested />
+          </div>
+          <div style={{ marginTop: "220px" }}>
+            <CompanyLocation />
           </div>
         </Grid>
 
