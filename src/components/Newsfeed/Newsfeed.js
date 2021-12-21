@@ -23,7 +23,7 @@ function Newsfeed() {
   const state = useSelector((state) => state.setBanner.setNewfeedData);
   console.log("Mydata", state);
 
-  const getNewsfeedData = () => {
+  useEffect(() => {
     axios
       .get(
         "https://develop.hipoz.com/api/getnewsfeed?status_enum_id=0&news_user_type_id=0"
@@ -31,9 +31,6 @@ function Newsfeed() {
       .then((response) => {
         dispatch(setAllData(actionType.SET_NEWSFEED, response.data.data));
       });
-  };
-  useEffect(() => {
-    getNewsfeedData();
   }, []);
 
   const renderedList = state.map((item) => {

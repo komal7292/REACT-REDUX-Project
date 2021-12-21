@@ -81,7 +81,7 @@ function CompanyLocation() {
             }}
           >
             <p>
-              Edit Interested Work
+              Company Location
               <EditIcon
                 style={{
                   float: "right",

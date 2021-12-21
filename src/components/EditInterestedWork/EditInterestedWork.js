@@ -15,19 +15,17 @@ function EditInterestedWork(props) {
   const [getInterestedId, setGetInterestedId] = useState([]);
   console.log(getInterestedId);
 
-  function interestedWorkData() {
+  useEffect(() => {
     axios
       .get(
         "https://develop.hipoz.com/api/getintresetedworkin?interested_work_in_id=0&status_enum_id=1"
       )
       .then((response) => {
         setStudentInterestedWorkData(response.data.data);
-        console.log(response.data.data);
+        console.log("int", response.data.data);
       });
-  }
-  useEffect(() => {
-    interestedWorkData();
   }, []);
+
   function dataSubmit() {
     let data = [];
     // eslint-disable-next-line array-callback-return

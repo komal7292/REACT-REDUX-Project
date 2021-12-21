@@ -19,6 +19,7 @@ function EditTypeOfJobs(props) {
       )
       .then((response) => {
         setDataOfJob(response.data.data);
+        console.log("data", response.data.data);
       });
   }, []);
   function submitAllData(e) {

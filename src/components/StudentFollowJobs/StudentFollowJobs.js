@@ -10,26 +10,24 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import { Button } from "@mui/material";
 function StudentFollowJobs() {
-  const [openButton, setOpenButton] = useState(true);
+  const [openButton, setOpenButton] = useState(false);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.setBanner.setLikesData);
   const favCompany = useSelector(
     (state) => state.setBanner.setFavoriteCompanyData
   );
   console.log(data);
-  function getLikesPost() {
+  useEffect(() => {
     axios
       .get("https://develop.hipoz.com/api/getcompany?company_id=0&user_id=1001")
       .then((response) => {
         console.log(response.data);
         dispatch(setAllData(actionType.SET_LIKES, response.data.data));
       });
-  }
-  useEffect(() => {
-    getLikesPost();
   }, []);
+
   function showAllDataList() {
-    setOpenButton(false);
+    setOpenButton(true);
   }
   function followCompany(i) {
     let companyArray = [...data];

@@ -6,8 +6,8 @@ function GetStudentLoginData() {
   const [name, setName] = useState("");
   const [university, setUniversity] = useState("");
   const data = JSON.parse(localStorage.getItem("userDetails"));
-  async function getData() {
-    await axios
+  useEffect(() => {
+    axios
       .get(
         `https://develop.hipoz.com/api/userprofile?user_id=${data?.admin_id}&status_enum_id=1`
       )
@@ -15,9 +15,6 @@ function GetStudentLoginData() {
         setName(response.data.data[0]);
         setUniversity(response.data.data[0].education[0]);
       });
-  }
-  useEffect(() => {
-    getData();
   }, []);
 
   return (

@@ -1,49 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
+import EditIcon from "@mui/icons-material/Edit";
+import { useDispatch, useSelector } from "react-redux";
 import { setAllData } from "../redux/action/action";
 import { actionType } from "../redux/constant/actionType";
-import { useDispatch, useSelector } from "react-redux";
-import EditIcon from "@mui/icons-material/Edit";
-import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
-import EditTypeOfJobs from "../EditTypeOfJobs/EditTypeOfJobs";
+import { Modal } from "@mui/material";
+import EditSkills from "./EditSkills";
 
-function TypeOfJob() {
+function Skills() {
   let dispatch = useDispatch();
-  const dataOfJobs = useSelector((state) => state.setBanner.setTypeOfJobsData);
-  const data = JSON.parse(localStorage.getItem("userDetails"));
-  const JobsToggle = useSelector((state) => state.setBanner.setJobsToggle);
+  const state = useSelector((state) => state.setBanner.setSkillsData);
+  console.log("state", state);
+  const SkillsToggle = useSelector((state) => state.setBanner.setSkillsToggle);
+  function getSkillsData() {
+    axios
+      .get("https://develop.hipoz.com/api/userskills?user_id=1098")
+      .then((res) => {
+        dispatch(setAllData(actionType.SET_SKILLS_DATA, res.data.data));
+      });
+  }
+  useEffect(() => {
+    getSkillsData();
+  }, []);
+  function handleOpen() {
+    dispatch(setAllData(actionType.SET_SKILLS_TOGGLE, true));
+  }
   const style = {
     position: "relative",
-    overflow: "auto",
+    overflow: "scroll",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "30%",
-    height: "auto",
+    width: "50%",
+    height: "100% vcds",
     bgcolor: "#292937",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
-  function handleOpen() {
-    dispatch(setAllData(actionType.SET_JOBS_TOGGLE, true));
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function getTypeOfJobsData() {}
-  useEffect(() => {
-    axios
-      .get(
-        `https://develop.hipoz.com/api/userprofile?user_id=${data?.admin_id}&status_enum_id=1`
-      )
-      .then((response) => {
-        dispatch(
-          setAllData(actionType.SET_TYPE_OF_JOBS_DATA, response.data.data[0])
-        );
-      });
-  }, []);
-
   return (
     <div
       style={{
@@ -55,7 +51,7 @@ function TypeOfJob() {
         borderRadius: "20px",
       }}
     >
-      {dataOfJobs.job_type_name === null ? (
+      {state === null ? (
         <div>
           <div
             style={{
@@ -66,7 +62,7 @@ function TypeOfJob() {
             }}
           >
             <p>
-              Type Of job
+              Skills
               <AddIcon
                 style={{
                   float: "right",
@@ -78,7 +74,7 @@ function TypeOfJob() {
             </p>
             <div>
               <p style={{ padding: "50px", textAlign: "center" }}>
-                Type of Jobs not added yet.
+                Scholarship data not added yet.
               </p>
             </div>
           </div>
@@ -94,7 +90,7 @@ function TypeOfJob() {
             }}
           >
             <p>
-              Type Of job
+              EditSkill
               <EditIcon
                 style={{
                   float: "right",
@@ -104,7 +100,7 @@ function TypeOfJob() {
                 onClick={handleOpen}
               />
             </p>
-            {dataOfJobs.job_type_name?.map((item) => {
+            {state.map((item) => {
               return (
                 <div
                   style={{
@@ -119,7 +115,8 @@ function TypeOfJob() {
                     marginRight: "5px",
                   }}
                 >
-                  {item.job_type_name}
+                  {item.skills_name}
+                  {item.expertise_level_name}
                 </div>
               );
             })}
@@ -127,16 +124,17 @@ function TypeOfJob() {
         </div>
       )}
       <Modal
-        open={JobsToggle}
-        onClose={JobsToggle}
+        open={SkillsToggle}
+        onClose={SkillsToggle}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <EditTypeOfJobs passDataToProps={getTypeOfJobsData} />
+          <EditSkills data={getSkillsData} state={state} />
         </Box>
       </Modal>
     </div>
   );
 }
-export default TypeOfJob;
+
+export default Skills;

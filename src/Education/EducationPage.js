@@ -34,7 +34,8 @@ function EducationPage() {
   const data = JSON.parse(localStorage.getItem("userDetails"));
   let dispatch = useDispatch();
   const state = useSelector((state) => state.setBanner.setEducationData);
-  function educationDataGet() {
+
+  useEffect(() => {
     axios
       .get(
         `https://develop.hipoz.com/api/userprofile?user_id=${data?.admin_id}&status_enum_id=1`
@@ -47,9 +48,6 @@ function EducationPage() {
           )
         );
       });
-  }
-  useEffect(() => {
-    educationDataGet();
   }, []);
   return (
     <div
@@ -130,10 +128,7 @@ function EducationPage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <UpdateEducation
-            educationData={educationDataGet}
-            educationStudentData={state}
-          />
+          <UpdateEducation educationStudentData={state} />
         </Box>
       </Modal>
     </div>

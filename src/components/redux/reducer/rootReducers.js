@@ -8,6 +8,8 @@ const initialState = {
   setData: null,
   setFavoriteCompanyData: [],
   setDescriptionData: [],
+  setSkillsData: [],
+  setScholarshipData: [],
   setModalToggle: false,
   setEducationData: [],
   setProfileData: [],
@@ -21,6 +23,15 @@ const initialState = {
   setJobsToggle: false,
   setInterestedToggle: false,
   setCompanyLocationToggle: false,
+  setIdustryFieldToggle: false,
+  setResumeToggle: false,
+  setLanguageToggle: false,
+  setScholarshipToggle: false,
+  setSkillsToggle: false,
+  setSalaryToggle: false,
+  setSalaryData: [],
+  setExpereinceData: [],
+  setExpereinceToggle: false,
 };
 
 export const setBanner = (state = initialState, { type, payload }) => {
@@ -65,6 +76,16 @@ export const setBanner = (state = initialState, { type, payload }) => {
         ...state,
         setDescriptionData: payload,
       };
+    case actionType.SET_SKILLS_DATA:
+      return {
+        ...state,
+        setSkillsData: payload,
+      };
+    case actionType.SET_SCHOLARSHIP_DATA:
+      return {
+        ...state,
+        setScholarshipData: payload,
+      };
     case actionType.SET_MODAL_TOGGLE:
       return {
         ...state,
@@ -90,6 +111,11 @@ export const setBanner = (state = initialState, { type, payload }) => {
         ...state,
         setFieldOfStudyData: payload,
       };
+    case actionType.SET_SALARY_DATA:
+      return {
+        ...state,
+        setSalaryData: payload,
+      };
     case actionType.SET_UNIVERSITY_DATA:
       return {
         ...state,
@@ -104,6 +130,11 @@ export const setBanner = (state = initialState, { type, payload }) => {
       return {
         ...state,
         setYearData: payload,
+      };
+    case actionType.SET_EXPERIENCE_DATA:
+      return {
+        ...state,
+        setExpereinceData: payload,
       };
     case actionType.SET_EDUCATION_TOGGLE:
       return {
@@ -129,6 +160,41 @@ export const setBanner = (state = initialState, { type, payload }) => {
       return {
         ...state,
         setCompanyLocationToggle: payload,
+      };
+    case actionType.SET_INDUSTRY_FIELD_TOGGLE:
+      return {
+        ...state,
+        setIdustryFieldToggle: payload,
+      };
+    case actionType.SET_RESUME_TOGGLE:
+      return {
+        ...state,
+        setResumeToggle: payload,
+      };
+    case actionType.SET_LANGUAGE_TOGGLE:
+      return {
+        ...state,
+        setLanguageToggle: payload,
+      };
+    case actionType.SET_SCHOLARSHIP_TOGGLE:
+      return {
+        ...state,
+        setScholarshipToggle: payload,
+      };
+    case actionType.SET_SKILLS_TOGGLE:
+      return {
+        ...state,
+        setSkillsToggle: payload,
+      };
+    case actionType.SET_SALARY_TOGGLE:
+      return {
+        ...state,
+        setSalaryToggle: payload,
+      };
+    case actionType.SET_EXPERIENCE_TOGGLE:
+      return {
+        ...state,
+        setExpereinceToggle: payload,
       };
     default:
       return state;

@@ -11,6 +11,14 @@ import { useSelector, useDispatch } from "react-redux";
 import TypeOfJob from "../../components/TypeOfJob/TypeOfJob";
 import Interested from "../../components/Interested/Interested";
 import CompanyLocation from "../../components/CompanyLocation/CompanyLocation";
+import IndustryField from "../../components/IndustryField/IndustryField";
+import UploadResume from "../../components/UploadResume/UploadResume";
+import Language from "../../components/Language/Language";
+import Scholarship from "../../components/Scholarship/Scholarship";
+import Skills from "../../components/Skills/Skills";
+import ExpectedSalary from "../../components/ExpectedSalary/ExpectedSalary";
+import Experience from "../../components/Experience/Experience";
+import Education from "../../components/Education/Education";
 
 function ProfilePage() {
   const ProfileData = useSelector((state) => state.setBanner.setProfileData);
@@ -18,20 +26,21 @@ function ProfilePage() {
   let dispatch = useDispatch();
   const data = JSON.parse(localStorage.getItem("userDetails"));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  function dataGet() {
+  function getData() {
     axios
       .get(
         `https://develop.hipoz.com/api/userprofile?user_id=${data?.admin_id}&status_enum_id=1`
       )
       .then((response) => {
+        console.log("jk", response.data.data[0]);
         dispatch(
           setAllData(actionType.SET_PROFILE_DATA_GET, response.data.data[0])
         );
       });
   }
   useEffect(() => {
-    dataGet();
-  }, [dataGet]);
+    getData();
+  }, []);
 
   return (
     <div>
@@ -51,7 +60,7 @@ function ProfilePage() {
           <GetStudentLoginData />
         </Grid>
         <Grid item md={6}>
-          <EducationPage />
+          <Education />
           <div style={{ marginTop: "220px" }}>
             <TypeOfJob />
           </div>
@@ -61,8 +70,28 @@ function ProfilePage() {
           <div style={{ marginTop: "220px" }}>
             <CompanyLocation />
           </div>
+          <div style={{ marginTop: "220px" }}>
+            <IndustryField />
+          </div>
+          <div style={{ marginTop: "220px" }}>
+            <UploadResume />
+          </div>
+          <div style={{ marginTop: "220px" }}>
+            <Language />
+          </div>
+          <div style={{ marginTop: "220px" }}>
+            <Scholarship />
+          </div>
+          <div style={{ marginTop: "220px" }}>
+            <Skills />
+          </div>
+          <div style={{ marginTop: "220px" }}>
+            <ExpectedSalary />
+          </div>
+          <div style={{ marginTop: "220px" }}>
+            <Experience />
+          </div>
         </Grid>
-
         <Grid item md={3}>
           <DescriptionPage />
         </Grid>

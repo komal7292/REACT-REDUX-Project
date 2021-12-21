@@ -20,7 +20,6 @@ function UpdateEducation(props) {
     userEducationId: 0,
   };
   const [graduation, setGraduation] = useState([{ ...initialObject }]);
-  console.log("graduation", graduation);
   const degreeData = useSelector((state) => state.setBanner.setDegreeData);
   const StudyFieldData = useSelector(
     (state) => state.setBanner.setFieldOfStudyData

@@ -15,6 +15,7 @@ function DescriptionPage() {
     dispatch(setAllData(actionType.SET_MODAL_TOGGLE, true));
   }
   const data = JSON.parse(localStorage.getItem("userDetails"));
+  console.log("d", data);
   let dispatch = useDispatch();
   const state = useSelector((state) => state.setBanner.setDescriptionData);
   function getDescriptionData() {
@@ -23,7 +24,6 @@ function DescriptionPage() {
         `https://develop.hipoz.com/api/userprofile?user_id=${data?.admin_id}&status_enum_id=1`
       )
       .then((response) => {
-        console.log(response.data.data[0]);
         dispatch(
           setAllData(actionType.SET_DESCRIPTION_DATA, response.data.data[0])
         );

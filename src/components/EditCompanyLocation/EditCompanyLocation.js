@@ -6,24 +6,23 @@ import { setAllData } from "../redux/action/action";
 import { actionType } from "../redux/constant/actionType";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
-function EditCompanyLocation(props) {
+
+function EditCompanyLocation() {
   let dispatch = useDispatch();
   const studentData = useSelector((state) => state.setBanner.setProfileData);
   const [studentCompanyLocationData, setStudentCompanyLocationData] = useState(
     []
   );
   const [studentCompanyId, setStudentCompanyId] = useState([]);
-  function studentCompanyData() {
+
+  useEffect(() => {
     axios
       .get("https://develop.hipoz.com/api/countrylist?country_id=0")
       .then((response) => {
         setStudentCompanyLocationData(response.data.data);
-        console.log("koko", response.data.data);
       });
-  }
-  useEffect(() => {
-    studentCompanyData();
   }, []);
+
   function closeModal() {
     dispatch(setAllData(actionType.SET_COMPANY_LOCATION_TOGGLE, false));
   }
@@ -45,7 +44,12 @@ function EditCompanyLocation(props) {
       .then((response) => {
         if (response.data.statuscode === 200) {
           dispatch(setAllData(actionType.SET_COMPANY_LOCATION_TOGGLE, false));
-          setAllData(actionType.SET_PROFILE_DATA_GET, response.data.data);
+          dispatch(
+            setAllData(
+              actionType.SET_PROFILE_DATA_GET,
+              response.data.data[0].interested_work
+            )
+          );
         }
       });
   }
@@ -80,7 +84,7 @@ function EditCompanyLocation(props) {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Your Job"
+            label="Company Location"
             placeholder={studentData.pref_country_name?.map((item) => {
               return item.country_name;
             })}

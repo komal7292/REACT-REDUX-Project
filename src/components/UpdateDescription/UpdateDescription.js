@@ -7,6 +7,7 @@ import { setAllData } from "../redux/action/action";
 import { actionType } from "../redux/constant/actionType";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
+import { toast } from "react-toastify";
 
 function UpdateDescription(props) {
   let dispatch = useDispatch();
@@ -30,6 +31,7 @@ function UpdateDescription(props) {
       .then((response) => {
         if (response.data.statuscode === 200) {
           dispatch(setAllData(actionType.SET_MODAL_TOGGLE, false));
+          toast.success("successsfull");
           props.getData();
         }
       });

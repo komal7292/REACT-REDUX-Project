@@ -80,7 +80,7 @@ function Interested() {
             }}
           >
             <p>
-              Edit Interested Work
+              Interested Work
               <EditIcon
                 style={{
                   float: "right",

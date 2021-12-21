@@ -1,49 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Box } from "@mui/system";
+import { Button, Modal } from "@mui/material";
 import { setAllData } from "../redux/action/action";
 import { actionType } from "../redux/constant/actionType";
-import { useDispatch, useSelector } from "react-redux";
-import EditIcon from "@mui/icons-material/Edit";
-import { Modal } from "@mui/material";
-import { Box } from "@mui/system";
-import EditTypeOfJobs from "../EditTypeOfJobs/EditTypeOfJobs";
-
-function TypeOfJob() {
+import EditExpereince from "./EditExpereince";
+function Experience() {
   let dispatch = useDispatch();
-  const dataOfJobs = useSelector((state) => state.setBanner.setTypeOfJobsData);
-  const data = JSON.parse(localStorage.getItem("userDetails"));
-  const JobsToggle = useSelector((state) => state.setBanner.setJobsToggle);
+  const expereinceData = useSelector(
+    (state) => state.setBanner.setExpereinceData
+  );
+  const experienceToggle = useSelector(
+    (state) => state.setBanner.setExpereinceToggle
+  );
+  function getExpereinceData() {
+    axios
+      .get("https://develop.hipoz.com/api/userworkexperince?user_id=1098")
+      .then((resp) => {
+        console.log("resp", resp.data);
+        dispatch(setAllData(actionType.SET_EXPERIENCE_DATA, resp.data.data));
+      });
+  }
+  useEffect(() => {
+    getExpereinceData();
+  }, []);
+  function handleOpen() {
+    dispatch(setAllData(actionType.SET_EXPERIENCE_TOGGLE, true));
+  }
   const style = {
     position: "relative",
-    overflow: "auto",
+    overflow: "scroll",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "30%",
-    height: "auto",
+    width: "50%",
+    height: "100%",
     bgcolor: "#292937",
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
-  function handleOpen() {
-    dispatch(setAllData(actionType.SET_JOBS_TOGGLE, true));
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function getTypeOfJobsData() {}
-  useEffect(() => {
-    axios
-      .get(
-        `https://develop.hipoz.com/api/userprofile?user_id=${data?.admin_id}&status_enum_id=1`
-      )
-      .then((response) => {
-        dispatch(
-          setAllData(actionType.SET_TYPE_OF_JOBS_DATA, response.data.data[0])
-        );
-      });
-  }, []);
-
   return (
     <div
       style={{
@@ -55,7 +54,7 @@ function TypeOfJob() {
         borderRadius: "20px",
       }}
     >
-      {dataOfJobs.job_type_name === null ? (
+      {expereinceData === null ? (
         <div>
           <div
             style={{
@@ -66,7 +65,7 @@ function TypeOfJob() {
             }}
           >
             <p>
-              Type Of job
+              Experience
               <AddIcon
                 style={{
                   float: "right",
@@ -78,7 +77,7 @@ function TypeOfJob() {
             </p>
             <div>
               <p style={{ padding: "50px", textAlign: "center" }}>
-                Type of Jobs not added yet.
+                Experience data not added yet.
               </p>
             </div>
           </div>
@@ -94,7 +93,7 @@ function TypeOfJob() {
             }}
           >
             <p>
-              Type Of job
+              Edit Expereince
               <EditIcon
                 style={{
                   float: "right",
@@ -104,7 +103,7 @@ function TypeOfJob() {
                 onClick={handleOpen}
               />
             </p>
-            {dataOfJobs.job_type_name?.map((item) => {
+            {expereinceData.map((item) => {
               return (
                 <div
                   style={{
@@ -119,7 +118,8 @@ function TypeOfJob() {
                     marginRight: "5px",
                   }}
                 >
-                  {item.job_type_name}
+                  {item.company_name}
+                  {item.start_work_on_year}
                 </div>
               );
             })}
@@ -127,16 +127,17 @@ function TypeOfJob() {
         </div>
       )}
       <Modal
-        open={JobsToggle}
-        onClose={JobsToggle}
+        open={experienceToggle}
+        onClose={experienceToggle}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <EditTypeOfJobs passDataToProps={getTypeOfJobsData} />
+          <EditExpereince propsData={expereinceData} />
         </Box>
       </Modal>
     </div>
   );
 }
-export default TypeOfJob;
+
+export default Experience;
